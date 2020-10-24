@@ -5,7 +5,7 @@ const getRandom = (max=100, min=0) => {
   return Math.floor(Math.random()*((max+1)-min)+min)
 }
 
-const App = () => {
+const HighScoreApp = () => {
   const [userScore,setUserScore] = useState(0)
   const [clickCount,setClickCount] = useState(0)
   const [buttonDisabled,toggleButtonDisabled] = useState(false)
@@ -54,4 +54,4 @@ const App = () => {
   )
 }
 
-export default App
+export default HighScoreApp

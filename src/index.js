@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
+import HighScoreApp from './HighScoreApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <HighScoreApp />
   </React.StrictMode>,
   document.getElementById('displayReact')
 );
