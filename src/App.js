@@ -8,15 +8,16 @@ const getRandom = (max=100, min=0) => {
 const App = () => {
   const [userScore,setUserScore] = useState(0)
   const [clickCount,setClickCount] = useState(0)
-  const [buttonStatus,setButtonStatus] = useState(false)
+  const [buttonDisabled,toggleButtonDisabled] = useState(false)
   const [inputContent,setInputContent] = useState('')
   const [userMessage,setUserMessage] = useState('')
   
-  const handleNumber = () => {
+  const handlePlayButton = () => {
     setUserScore(getRandom(100,-100))
-    setClickCount(clickCount+1)
-    // fix off by one error
-    if(clickCount>=10) { setButtonStatus(true) }
+    const count = clickCount+1
+    console.log(count)
+    setClickCount(count)
+    if(count>=10) { toggleButtonDisabled(true) }
   }
 
   const handleInput = (event) => {
@@ -45,10 +46,10 @@ const App = () => {
     <>
       <h1>Score: {userScore}</h1>
       <h1>Clicks: {clickCount}</h1>
-      <button onClick={() => { handleNumber() }} disabled={buttonStatus}>Try Your Luck</button>
+      <button onClick={handlePlayButton} disabled={buttonDisabled}>Try Your Luck</button>
       <label>Name </label>
       <input type='text' value={inputContent} onChange={handleInput}></input>
-      <button onClick={() => { handleSubmit() }} disabled={buttonStatus}>Submit</button>
+      <button onClick={() => { handleSubmit() }}>Submit</button>
     </>
   )
 }
