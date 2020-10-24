@@ -1,4 +1,34 @@
-# Getting Started with Create React App
+# High Score App
+
+## Quick Start
+
+To begin the development, run `yarn start`.
+To create a production bundle, run `yarn build`.
+To deploy, 
+
+
+## Getting a Create-React-App Onto GitHub Pages
+
+### Configure Remote Repo to use gh-pages
+
+set up gh-pages on the repo
+
+### Configure Local Repo to use gh-pages
+
+`npm install gh-pages --save-dev`
+
+Edit the package.json: "homepage": "http://{githubusername}.github.io/{nameofrepo}" in scripts: "predeploy": "npm run build", "deploy": "gh-pages -d build"
+
+### Deploy Code to Production
+
+`npm run deploy`
+
+### Push Code into Remote Repo
+`commit` and `push`
+
+
+
+# Readme Content from Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
