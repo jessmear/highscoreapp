@@ -1,13 +1,16 @@
 # High Score App
 
+## About
+
+High Score game was developed in October 2020 by Jess Mear (jessmeardev@gmail.com), starting with Create React App. The Star Wars API (https://swapi.dev/) was used to populate the leaderboard. 
+
 ## Quick Start
 
+Currently running on `node v15.0.1`
 To begin the development, run `yarn start`.
 To create a production bundle, run `yarn build`.
-To deploy, 
 
-
-## Getting a Create-React-App Onto GitHub Pages
+## How to Deploy Create-React-App Onto GitHub Pages
 
 ### Configure Remote Repo to use gh-pages
 
@@ -24,9 +27,12 @@ Edit the package.json: "homepage": "http://{githubusername}.github.io/{nameofrep
 `npm run deploy`
 
 ### Push Code into Remote Repo
+
+Note: Pushing code does NOT deploy the code
+
 `commit` and `push`
 
-
+---
 
 # Readme Content from Create React App
 
