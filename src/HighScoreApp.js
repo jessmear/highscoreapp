@@ -6,22 +6,29 @@ const getRandom = (max=100, min=0) => {
 }
 
 const HighScoreApp = () => {
-  const [userScore,setUserScore] = useState(0)
-  const [clickCount,setClickCount] = useState(0)
-  const [buttonDisabled,toggleButtonDisabled] = useState(false)
-  const [inputContent,setInputContent] = useState('')
-  const [userMessage,setUserMessage] = useState('')
+  // Default Game Settings
+  const maxRounds = 10;
+
+  // Game State
+  const [userScore, setUserScore] = useState(0)
+  const [points, setPoints] = useState([])
+  const [clickCount, setClickCount] = useState(0)
+  const [buttonDisabled, toggleButtonDisabled] = useState(false)
+  const [name, setName] = useState('PlayerOne')
+  const [userMessage, setUserMessage] = useState('')
   
   const handlePlayButton = () => {
-    setUserScore(getRandom(100,-100))
+    const currentPoints = [...points, getRandom(100,-100)]
+    setUserScore(currentPoints.reduce((total, num) => { return total + num; })
+    )
+    setPoints(currentPoints)
     const count = clickCount+1
-    console.log(count)
     setClickCount(count)
-    if(count>=10) { toggleButtonDisabled(true) }
+    if(count>=maxRounds) { toggleButtonDisabled(true) }
   }
 
   const handleInput = (event) => {
-    setInputContent(event.target.value);
+    setName(event.target.value);
   }
 
   const handleSubmit = () => {
@@ -29,7 +36,7 @@ const HighScoreApp = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
-        name: inputContent,
+        name: name,
         score: userScore,
         clicks: clickCount
       })
@@ -37,20 +44,73 @@ const HighScoreApp = () => {
     // fetch('placeholder.com/placeholder', data)
     //  .then(response => response.json())
     //. .then( )
-    console.log(`Name: ${inputContent}`)
+    console.log(`Name: ${name}`)
     console.log(`Click Count: ${clickCount}`)
     console.log(`User Score: ${userScore}`)
+    console.log(`Points: ${points}`)
+    handleReset()
   }
+
+  const handleReset = () => {
+    console.log('reset')
+    setUserScore(0)
+    setPoints([])
+    setClickCount(0)
+    toggleButtonDisabled(false)
+  }
+
+  const pointsList = points.map( point => {
+      return (<li>{point}</li>)
+  })
+
+  console.log()
   
   return (
-    <>
-      <h1>Score: {userScore}</h1>
-      <h1>Clicks: {clickCount}</h1>
-      <button onClick={handlePlayButton} disabled={buttonDisabled}>Try Your Luck</button>
-      <label>Name </label>
-      <input type='text' value={inputContent} onChange={handleInput}></input>
-      <button onClick={() => { handleSubmit() }}>Submit</button>
-    </>
+    <div id='star-wars'>
+      <div className='titleBox'><h1 className='title'>High Score App</h1></div>
+
+      <div className='flex-container wrap'>
+
+        <div className='flex-fullrow-item'>
+          <div className='instructions'>
+            <h3 className='header'>Goal: Get the highest score you can in ten or fewer clicks.</h3>
+            <p>How to Play:</p>
+            <ul>
+              <li>Add your name.</li>
+              <li>Click the 'Try Your Luck' button.</li>
+              <li>Each time you click, your score will be modified by a randomly generated number.</li>
+              <li>When you are happy with your score, or out of chances, submit your name and score.</li>
+            </ul>
+            <label>Name</label>
+            <input type='text' value={name} onChange={handleInput} />
+          </div>
+        </div>
+      
+        <div className='flex-item game-container'>
+          <div className="game">
+            <h2>Welcome {name}!</h2>
+            <p>Score: </p><span className={`info user-score-${userScore}`}>{userScore}</span>
+            <p>Clicks Remaining: </p><span className={`info clicks-remaining-${maxRounds-clickCount}`}>{maxRounds-clickCount} out of {maxRounds}</span>
+            <button className='play' onClick={handlePlayButton} disabled={buttonDisabled}>
+              {`${buttonDisabled ? 'Round Over' : 'Try Your Luck'}`}
+            </button>
+            <button className='reset' onClick={handleReset} disabled={buttonDisabled}>
+              Start Over
+            </button>
+            <button className='submit' onClick={handleSubmit}>Send it!</button>
+          </div>
+          <div className='current-round'>
+            <p>Points This Round</p>
+            <ul>{pointsList}</ul>
+          </div>
+        </div> 
+
+        <div className='flex-item leaderboard'>
+          <p>Leaderboard</p>
+        </div>
+
+      </div>
+    </div>
   )
 }
 
