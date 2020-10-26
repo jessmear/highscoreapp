@@ -1,18 +1,22 @@
-import { getRandom } from './utils';
-
-const randomNumDefault = getRandom();
-const randomNumWideRange = getRandom(100,-100);
-const randomNumNarrowRange = getRandom(3);
+import { getRandom, getAverage } from './utils';
 
 test('random numbers without params', () => {
-  expect(randomNumDefault).toBeGreaterThanOrEqual(0);
-  expect(randomNumDefault).toBeLessThanOrEqual(100);
+  expect(getRandom()).toBeGreaterThanOrEqual(0);
+  expect(getRandom()).toBeLessThanOrEqual(100);
 });
 test('random numbers with params 100, -100', () => {
-  expect(randomNumWideRange).toBeGreaterThanOrEqual(-100);
-  expect(randomNumWideRange).toBeLessThanOrEqual(100);
+  expect(getRandom(100,-100)).toBeGreaterThanOrEqual(-100);
+  expect(getRandom(100,-100)).toBeLessThanOrEqual(100);
 });
-test('random numbers with param 3', () => {
-  expect(randomNumNarrowRange).toBeGreaterThanOrEqual(0);
-  expect(randomNumNarrowRange).toBeLessThanOrEqual(3);
+test('random numbers with one param', () => {
+  expect(getRandom(3)).toBeGreaterThanOrEqual(0);
+  expect(getRandom(3)).toBeLessThanOrEqual(3);
+  expect(getRandom(1000)).toBeGreaterThanOrEqual(0);
+  expect(getRandom(1000)).toBeLessThanOrEqual(1000);
+});
+
+test('get the rounded average of a total and a count of elements', () => {
+  expect(getAverage(5,10)).toEqual(1);
+  expect(getAverage(100,8)).toEqual(13);
+  expect(getAverage(50,5)).toEqual(10);
 });

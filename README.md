@@ -6,14 +6,20 @@ High Score game was developed in October 2020 by Jess Mear (jessmeardev@gmail.co
 
 ## Dev Goals
 
-Ideas:
+Possible Updates:
 - Make both styles more mobile friendly
 - Put leaderboard data in a DB so that the leaderboard could be real players
 
-Possible UX Feature
+Possible UX Features:
+
 - Implement and test a feature where there is no need to reset, but instead the user can continue playing, but after each tenth click, the score is reset to 0
-- This would allow a smoother play experience
-- It would remove some of the fun and tension in that each round no longer feels separate
+  - This would allow a smoother play experience
+  - It would remove some of the fun and tension in that each round no longer feels separate
+
+- Implement and test a feature where the user can toggle sorting the leaderboard by score or average score per click
+  - This would add a more of a sense of fun and also add interest to the leaderboard
+  - The leaderboard is displaying the average data
+  - Work remaining: implementation of the sort and a button or UI element
 
 ### Testing
 

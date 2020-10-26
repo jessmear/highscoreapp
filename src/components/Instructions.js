@@ -10,6 +10,7 @@ const Instructions = props => {
         <li>Click the 'Try Your Luck' button.</li>
         <li>Each time you click, your score will be modified by a randomly generated number.</li>
         <li>When you are happy with your score, or out of chances, submit your name and score.</li>
+        <li>Only your highest score will be saved to the leaderboard.</li>
       </ul>
       <label>Name</label>
       <input type='text' value={props.userInfo.name} onChange={props.handleInput} />

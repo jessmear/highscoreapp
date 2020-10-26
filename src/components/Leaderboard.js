@@ -16,6 +16,7 @@ const Leaderboard = props => {
       <td key={`${person.name}${person.id}`}>{person.name}</td>
       <td key={`score${person.name}${person.id}`}>{person.score}</td>
       <td key={`clicks${person.name}${person.id}`}>{person.clicks}</td>
+      <td key={`avg${person.name}${person.id}`}>{person.average}</td>
     </tr>
   })
 
@@ -28,6 +29,7 @@ const Leaderboard = props => {
             <th>Name</th>
             <th>Score</th>
             <th>Clicks</th>
+            <th>Average</th>
           </tr>
         </thead>
         <tbody>
