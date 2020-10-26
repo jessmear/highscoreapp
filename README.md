@@ -7,8 +7,11 @@ High Score game was developed in October 2020 by Jess Mear (jessmeardev@gmail.co
 ## Dev Goals
 
 Possible Updates:
+
 - Make both styles more mobile friendly
+
 - Put leaderboard data in a DB so that the leaderboard could be real players
+
 
 Possible UX Features:
 
@@ -20,6 +23,13 @@ Possible UX Features:
   - This would add a more of a sense of fun and also add interest to the leaderboard
   - The leaderboard is displaying the average data
   - Work remaining: implementation of the sort and a button or UI element
+
+- Add colors to the numbers in the points list to reflect how high or low they are
+
+- Add some css animation and more elaborate displays to add fun and engagement
+
+- Add a rapidly shifting number (spinner?) so the ucer can try to click on a higher number intentionally, instead of getting a random number
+
 
 ### Testing
 
