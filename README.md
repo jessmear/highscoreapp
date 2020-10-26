@@ -2,7 +2,7 @@
 
 ## About
 
-High Score game was developed in October 2020 by Jess Mear (jessmeardev@gmail.com), starting with Create React App. The Star Wars API (https://swapi.dev/) was used to populate the leaderboard. 
+High Score game was developed in October 2020 by Jess Mear (jessmeardev@gmail.com), starting with Create React App. The Star Wars API (https://swapi.dev/) was used to populate the leaderboard.
 
 ## Quick Start
 
@@ -14,7 +14,7 @@ To create a production bundle, run `yarn build`.
 
 ### Configure Remote Repo to use gh-pages
 
-set up gh-pages on the repo
+Set up gh-pages on the remote repo (see help files on GitHub)
 
 ### Configure Local Repo to use gh-pages
 
