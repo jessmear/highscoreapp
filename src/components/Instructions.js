@@ -12,7 +12,7 @@ const Instructions = props => {
         <li>When you are happy with your score, or out of chances, submit your name and score.</li>
       </ul>
       <label>Name</label>
-      <input type='text' value={props.name} onChange={props.handleInput} />
+      <input type='text' value={props.userInfo.name} onChange={props.handleInput} />
     </div>
   )
 }

@@ -2,31 +2,30 @@ import React, {useState, useEffect} from 'react'
 
 const Leaderboard = props => {
   const [leaderBoard, setLeaderboard] = useState([])
-  const { name, userScore, clickCount, topTen, loading } = props
+  const { userInfo, playerData, loading } = props
 
   useEffect(() => {
-    formatLeaderboardData(topTen)
-  },[topTen, userScore])
+    formatLeaderboardData(playerData)
+  },[playerData, userInfo.score])
 
   const formatLeaderboardData = data => {
-    const formattedData = data.map( person => {
+    const formattedData = data.map( (person,i) => {
       let clicks = person.mass ? parseInt(person.mass.slice(-1)) : 0
       clicks = (clicks<2) ? clicks+2 : clicks
       return {
+        id: i,
         name: person.name,
         score: person.height,
         clicks
       }
     })
-    formattedData.push({clicks: clickCount, name, score: userScore})
-    console.log(formattedData)
+    formattedData.push({id: 10, clicks: userInfo.clicks, name: userInfo.name, score: userInfo.score})
     const sortedData = formattedData.sort((personA, personB) => {
       personA = parseInt(personA.score)
       personB = parseInt(personB.score)
       return (personA < personB) ? 1 : -1
     })
-
-    setLeaderboard(sortedData.slice(0, 10))
+    setLeaderboard(sortedData)
   }
 
   const tableRows = leaderBoard.map( person => {
@@ -48,7 +47,7 @@ const Leaderboard = props => {
       </tr>
     </thead>
     <tbody>
-        { !loading ? tableRows : <tr><td>Loading...</td></tr> }
+        { !loading ? tableRows.slice(0,10) : <tr><td>Loading...</td></tr> }
     </tbody>
   </table>
 </div>)

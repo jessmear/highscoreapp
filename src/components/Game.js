@@ -6,15 +6,13 @@ const Game = props => {
   const maxRounds = 10
   const [points, setPoints] = useState([])
   const [buttonDisabled, toggleButtonDisabled] = useState(false)
-  const { name, userScore, setUserScore, clickCount, setClickCount, topTen, setTopTen } = props
+  const { userInfo, setUserInfo, playerData, setPlayerData } = props
 
   const handlePlayButton = () => {
     const currentPoints = [...points, getRandom(100,-100)]
-    setUserScore(currentPoints.reduce((total, num) => { return total + num })
-    )
     setPoints(currentPoints)
-    const count = clickCount+1
-    setClickCount(count)
+    const count = userInfo.clicks+1
+    setUserInfo({...userInfo, clicks: count, score: currentPoints.reduce((total, num) => { return total + num })})
     if(count>=maxRounds) { toggleButtonDisabled(true) }
   }
 
@@ -23,43 +21,42 @@ const Game = props => {
   })
 
   const handleReset = () => {
-    setUserScore(0)
+    setUserInfo({...userInfo, clicks: 0, score: 0})
     setPoints([])
-    setClickCount(0)
     toggleButtonDisabled(false)
   }
 
   const handleSubmit = () => {
     console.log("SUBMITTING:")
-    console.log(topTen)
-    setTopTen(topTen)
+    console.log(playerData)
+    setPlayerData(playerData)
     handleReset()
     const data = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: name,
-        score: userScore,
-        clicks: clickCount
+        name: userInfo.name,
+        score: userInfo.score,
+        clicks: userInfo.clicks
       })
     }
     fetch('https://reqres.in/api/users', data)
      .then(response => response.json())
 
-    console.log(`Name: ${name}`)
-    console.log(`Click Count: ${clickCount}`)
-    console.log(`User Score: ${userScore}`)
+    console.log(`Name: ${userInfo.name}`)
+    console.log(`Click Count: ${userInfo.clicks}`)
+    console.log(`User Score: ${userInfo.score}`)
     console.log(`Points: ${points}`)
   }
 
   return (
     <>
       <div className='game'>
-        <h2>Welcome {name}!</h2>
-        <p>Score: </p><span className={`info user-score-${userScore}`}>{userScore}</span>
+        <h2>Welcome {userInfo.name}!</h2>
+        <p>Score: </p><span className='info'>{userInfo.score}</span>
         <p>Clicks Remaining: </p>
         <span className='info'>
-          {maxRounds-clickCount} out of {maxRounds}
+          {maxRounds-userInfo.clicks} out of {maxRounds}
         </span>
         <Button classes={`play${buttonDisabled ? ' disabled' : ''}`} onclick={handlePlayButton} disabled={buttonDisabled}>
           {`${buttonDisabled ? 'Round Over' : 'Try Your Luck'}`}
