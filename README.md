@@ -12,7 +12,6 @@ Possible Updates:
 
 - Put leaderboard data in a DB so that the leaderboard could be real players
 
-
 Possible UX Features:
 
 - Implement and test a feature where there is no need to reset, but instead the user can continue playing, but after each tenth click, the score is reset to 0
