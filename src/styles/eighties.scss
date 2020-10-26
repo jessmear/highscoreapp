@@ -1,0 +1,293 @@
+@import 'variables';
+
+$background: $black;
+$secondary: yellow;
+$tertiary: lime;
+$accent: deeppink;
+$accent2: darken($accent, 15%);
+$title: yellow;
+$text: #00ddff;
+
+#star-wars {
+  background: $background;
+  color: $text;
+  overflow: hidden;
+
+  .note {
+    font-size: 14px;
+    font-weight: 300;
+    display: inline-block;
+    color: $gray;
+  }
+
+  .flex-container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row wrap;
+    align-content: center;
+    flex: 1 100%;
+  }
+
+  .header-container {
+    flex: 0 0 100%;
+  }
+
+  .title-box {
+    height: 60px;
+    perspective: 300px;
+    position: relative;
+  }
+
+  .title {
+    font-family: $oswald;
+    color: black;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    transform-style: preserve-3d;
+    transform: rotateX(45deg);
+    text-shadow: 1px 1px $title,
+                1px -1px $title,
+                -1px 1px $title,
+                -1px -1px $title;
+    text-transform: uppercase;
+  }
+
+  .error {
+    font-weight: 700;
+    text-align: center;
+    font-size: 28px;
+
+    span {
+      font-size: 36px;
+      color: red;
+    }
+  }
+
+  h2 {
+    font-size: 50px;
+    margin: 0 0 40px;
+    padding: 0;
+    display: block;
+    text-align: center;
+    width: 100%;
+    color: $background;
+    text-shadow: 1px 1px $text,
+                 1px -1px $text,
+                 -1px 1px $text,
+                 -1px -1px $text;
+  }
+
+  h3 {
+    font-weight: 300;
+    font-size: 18px;
+  }
+
+  p {
+    color: $tertiary;
+    font-size: 28px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  .info {
+    font-size: 32px;
+    display: inline-block;
+  }
+
+  .instructions {
+    max-width: 600px;
+    margin: auto;
+    color: darken($text, 10%);
+    ul li {
+      font-size: 15px;
+    }
+  }
+
+  .game-container,
+  .leaderboard {
+    margin: 20px;
+    padding: 30px 40px 0;
+    display: block;
+    border: 2px grey solid;
+    border-radius: 50px 0;
+    position: relative;
+    min-height: 520px;
+  }
+
+  .game-container {
+    flex-grow: 3;
+  }
+
+  .game {
+    width: 600px;
+    display: inline-block;
+
+    p {
+      margin: 5px 20px 25px 100px;
+      display: inline-block;
+      width: 250px;
+      text-align: right;
+      font-size: 32px;
+    }
+  }
+
+  .leaderboard {
+    flex-grow: 1;
+    max-width: 300px;
+  }
+
+  .current-round {
+    margin: 0 20px 20px;
+    padding: 0 0px 20px 30px;
+    border-left: dotted $gray 1px;
+    float: right;
+    min-height: 90%;
+
+    ul {
+      list-style-type: none;
+      text-align: center;
+      li {
+        font-size: 24px;
+      }
+    }
+  }
+
+  button {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 20px 30px;
+    width: 40%;
+    background: $background;
+    color: $gray;
+    font-family: $oswald;
+    border: 2px solid $gray;
+    border-radius: 15px 0 15px 0;
+    font-weight: 300;
+    transition: background .2s;
+    outline: none;
+
+    &:hover {
+      cursor: pointer;
+      background: lighten( $background, 15% );
+      color: $white;
+    }
+
+    &:focus {
+      outline: none !important;
+    }
+  }
+
+  .swap-styles {
+    width: unset;
+    font-size: 14px;
+    padding: 1px 4px;
+    border: 1px dotted gray;
+    margin: -15px 10px 40px;
+  }
+
+  .play.disabled {
+    cursor: not-allowed;
+    color: $white;
+    border-color: $gray;
+    background: #333;
+  }
+
+  .submit {
+    padding: 8px 20px;
+    color: $accent;
+    font-size: 21px;
+    font-weight: 600;
+    border-color: $accent;
+  }
+
+  .play {
+    display: block;
+    margin: 40px auto;
+    font-size: 40px;
+    padding: 7px 60px 10px;
+    background: $background;
+    border: $secondary 3px double;
+    border-radius: 50px 0 50px 0;
+    color: $secondary;
+    width: unset;
+  }
+
+  label,
+  input {
+    display: inline-block;
+    margin: 30px 10px 30px 0;
+    color: $accent2;
+    background: $background;
+  }
+
+  input {
+    box-shadow: none;
+    border: solid 1px $accent2;
+    border-radius: 10px 0;
+    outline: none;
+    color: $accent;
+    padding: 2px 10px;
+  }
+
+  td {
+    padding: 2px 8px;
+  }
+
+}
+
+// Media Queries
+
+@media screen and (min-width: 600px) {
+  #star-wars {
+    .title-box {
+      top: -40px;
+    }
+
+    .title {
+      font-size: 75px;
+      text-shadow: 2px 2px $title,
+                  2px -2px $title,
+                  -2px 2px $title,
+                  -2px -2px $title;
+    }
+  }
+}
+
+@media screen and (min-width: 940px) {
+  #star-wars {
+    .title-box {
+      top: -60px;
+    }
+
+    .title {
+      font-size: 100px;
+    }
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  #star-wars {
+    .title-box {
+      top: -130px;
+    }
+
+    .title {
+      font-size: 140px;
+    }
+  }
+}
+
+.player10 {
+  color: $accent;
+}
+
+.player11 {
+  color: dodgerblue;
+}
