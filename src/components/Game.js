@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+/*jshint -W033 */
+
+
+import React, { useState, useEffect } from 'react'
 import Button from './Button.js'
 import { getRandom } from '../utils.js'
 
@@ -10,10 +13,21 @@ const Game = props => {
 
   const handlePlayButton = () => {
     const currentPoints = [...points, getRandom(100,-100)]
-    setPoints(currentPoints)
     const count = userInfo.clicks+1
-    setUserInfo({...userInfo, clicks: count, score: currentPoints.reduce((total, num) => { return total + num })})
+    const tempList = playerList
+    const tempInfo = {
+      ...userInfo,
+      clicks: count,
+      score: currentPoints.reduce((total, num) => { return total + num })
+    }
+    tempList[tempList.findIndex(player => player.id == 10)] = tempInfo
+    setPlayerList(tempList)
+    setUserInfo(tempInfo)
+    setPoints(currentPoints)
     if(count>=maxRounds) { toggleButtonDisabled(true) }
+
+    console.log(tempList)
+
   }
 
   const pointsList = points.map( (point, i) => {
@@ -28,8 +42,7 @@ const Game = props => {
 
   const handleSubmit = () => {
     console.log("SUBMITTING:")
-    console.log([...playerList, userInfo])
-    setPlayerList([...playerList, userInfo])
+    console.log(playerList)
 
     const data = {
       method: 'POST',

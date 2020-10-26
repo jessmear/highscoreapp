@@ -1,36 +1,26 @@
+/*jshint -W033 */
+
+
 import React, {useState, useEffect} from 'react'
 
 const Leaderboard = props => {
-  const [leaderBoard, setLeaderboard] = useState([])
+  const [displayList, setDisplayList] = useState([])
   const { userInfo, playerList, setPlayerList, loading } = props
 
-  useEffect(() => {
-    formatLeaderboardData(playerList)
-  },[playerList, userInfo.score])
+  // useEffect(() => {
+  //   formatLeaderboardData(playerList)
+  // },[playerList, userInfo.score])
 
   const formatLeaderboardData = data => {
-    console.log("format leaderboard got called")
-    const formattedData = data.map( (person,i) => {
-      let clicks = person.mass ? parseInt(person.mass.slice(-1)) : 0
-      clicks = (clicks<2) ? clicks+2 : clicks
-      return {
-        id: i,
-        name: person.name,
-        score: person.height,
-        clicks
-      }
-    })
-    formattedData.push({id: 10, clicks: userInfo.clicks, name: userInfo.name, score: userInfo.score})
-    const sortedData = formattedData.sort((personA, personB) => {
+    const sortedData = data.sort((personA, personB) => {
       personA = parseInt(personA.score)
       personB = parseInt(personB.score)
       return (personA < personB) ? 1 : -1
     })
-    setLeaderboard(sortedData)
-    // setPlayerList(sortedData)
+    return sortedData
   }
 
-  const tableRows = leaderBoard.map( person => {
+  const tableRows = formatLeaderboardData(playerList).map( person => {
     return <tr key={`${person.name}-row`}>
       <td key={person.name}>{person.name}</td>
       <td key={`score${person.name}${person.score}`}>{person.score}</td>
@@ -40,6 +30,7 @@ const Leaderboard = props => {
 
   return (<div className='flex-item leaderboard'>
   <p>Leaderboard</p>
+  {console.log(playerList)}
   <table>
     <thead>
       <tr>
