@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react'
 
 const Leaderboard = props => {
   const [leaderBoard, setLeaderboard] = useState([])
-  const { userInfo, playerData, loading } = props
+  const { userInfo, playerList, setPlayerList, loading } = props
 
   useEffect(() => {
-    formatLeaderboardData(playerData)
-  },[playerData, userInfo.score])
+    formatLeaderboardData(playerList)
+  },[playerList, userInfo.score])
 
   const formatLeaderboardData = data => {
+    console.log("format leaderboard got called")
     const formattedData = data.map( (person,i) => {
       let clicks = person.mass ? parseInt(person.mass.slice(-1)) : 0
       clicks = (clicks<2) ? clicks+2 : clicks
@@ -26,6 +27,7 @@ const Leaderboard = props => {
       return (personA < personB) ? 1 : -1
     })
     setLeaderboard(sortedData)
+    // setPlayerList(sortedData)
   }
 
   const tableRows = leaderBoard.map( person => {

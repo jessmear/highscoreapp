@@ -6,7 +6,7 @@ const Game = props => {
   const maxRounds = 10
   const [points, setPoints] = useState([])
   const [buttonDisabled, toggleButtonDisabled] = useState(false)
-  const { userInfo, setUserInfo, playerData, setPlayerData } = props
+  const { userInfo, setUserInfo, playerList, setPlayerList } = props
 
   const handlePlayButton = () => {
     const currentPoints = [...points, getRandom(100,-100)]
@@ -28,9 +28,9 @@ const Game = props => {
 
   const handleSubmit = () => {
     console.log("SUBMITTING:")
-    console.log(playerData)
-    setPlayerData(playerData)
-    handleReset()
+    console.log([...playerList, userInfo])
+    setPlayerList([...playerList, userInfo])
+
     const data = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,6 +47,8 @@ const Game = props => {
     console.log(`Click Count: ${userInfo.clicks}`)
     console.log(`User Score: ${userInfo.score}`)
     console.log(`Points: ${points}`)
+
+    handleReset()
   }
 
   return (
