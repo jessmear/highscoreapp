@@ -1,33 +1,37 @@
-/*jshint -W033 */
-
-
 import React, { useState, useEffect } from 'react'
-import Button from './Button.js'
+import Button        from './Button.js'
 import { getRandom } from '../utils.js'
 
 const Game = props => {
-  const maxRounds = 10
-  const [points, setPoints] = useState([])
-  const [buttonDisabled, toggleButtonDisabled] = useState(false)
   const { userInfo, setUserInfo, playerList, setPlayerList } = props
+  const maxRounds = 10
+
+  const [points, setPoints] = useState([])
+  const [highScore, setHighScore] = useState({name: userInfo.name, id: 11, score: 0, clicks: 0})
+  const [buttonDisabled, toggleButtonDisabled] = useState(false)
 
   const handlePlayButton = () => {
-    const currentPoints = [...points, getRandom(100,-100)]
+    const currentPoints = [...points, getRandom(100,-1)]
     const count = userInfo.clicks+1
+    const currentScore = currentPoints.reduce((total, num) => { return total + num })
     const tempList = playerList
     const tempInfo = {
       ...userInfo,
       clicks: count,
-      score: currentPoints.reduce((total, num) => { return total + num })
+      score: currentScore
     }
-    tempList[tempList.findIndex(player => player.id == 10)] = tempInfo
+
+    const currentUserIndex = tempList.findIndex(player => player.id == 10)
+    if(currentUserIndex<0) {
+      tempList.push(tempInfo)
+    } else {
+      tempList[currentUserIndex] = tempInfo
+    }
+
     setPlayerList(tempList)
     setUserInfo(tempInfo)
     setPoints(currentPoints)
     if(count>=maxRounds) { toggleButtonDisabled(true) }
-
-    console.log(tempList)
-
   }
 
   const pointsList = points.map( (point, i) => {
@@ -36,13 +40,31 @@ const Game = props => {
 
   const handleReset = () => {
     setUserInfo({...userInfo, clicks: 0, score: 0})
+    const tempList = playerList
+    const currentUserIndex = tempList.findIndex(player => player.id == 10)
+    tempList[currentUserIndex] = {...userInfo, clicks: 0, score: 0}
+    setPlayerList(tempList)
     setPoints([])
     toggleButtonDisabled(false)
   }
 
   const handleSubmit = () => {
-    console.log("SUBMITTING:")
-    console.log(playerList)
+    let tempList = playerList
+    const currentUserIndex = playerList.findIndex(player => player.id == 10)
+    tempList.splice(currentUserIndex, 1)
+
+    if(userInfo.score > highScore.score) {
+      const highScoreIndex = playerList.findIndex(player => player.id == 11)
+
+      if(highScoreIndex>=0) {
+        tempList[highScoreIndex] = {...userInfo, id: 11}
+      } else {
+        tempList.push({...userInfo, id: 11})
+      }
+      setHighScore({...userInfo, id: 11})
+    }
+
+    setPlayerList(tempList)
 
     const data = {
       method: 'POST',
@@ -56,10 +78,10 @@ const Game = props => {
     fetch('https://reqres.in/api/users', data)
      .then(response => response.json())
 
+    console.log(`Results:`)
     console.log(`Name: ${userInfo.name}`)
     console.log(`Click Count: ${userInfo.clicks}`)
     console.log(`User Score: ${userInfo.score}`)
-    console.log(`Points: ${points}`)
 
     handleReset()
   }
