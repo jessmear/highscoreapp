@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import StarWarsTitle from './StarWarsTitle.js'
+import StandardTitle from './StandardTitle.js'
 import Instructions  from './Instructions.js'
 import Game          from './Game.js'
 import Leaderboard   from './Leaderboard.js'
 import Button        from './Button.js'
-import { getRandom } from '../utils.js'
+import { getRandom, getAverage } from '../utils.js'
 import '../styles/app.scss'
 import '../styles/standard.scss'
 import '../styles/eighties.scss'
-import StandardTitle from './StandardTitle.js'
 
 const HighScoreApp = () => {
   const [error, setError] = useState(null)
@@ -18,6 +18,7 @@ const HighScoreApp = () => {
   const [userInfo, setUserInfo] = useState({
     id: 10,
     name: 'Rey Skywalker',
+    average: 0,
     score: 0,
     clicks: 0
   })
@@ -39,17 +40,20 @@ const HighScoreApp = () => {
 
   const cleanUpList = list => {
     const cleanList = list.map( (person, i) => {
+      const clicks = getRandom(10,2)
       return {
         id: i,
         name: person.name,
         score: person.height,
-        clicks: getRandom(10,2)
+        average: getAverage(person.height, clicks),
+        clicks
       }
     })
     cleanList.push({
       id: userInfo.id,
       name: userInfo.name,
       score: userInfo.score,
+      average: getAverage(userInfo.score, userInfo.clicks),
       clicks: userInfo.clicks
     })
     setPlayerList(cleanList)

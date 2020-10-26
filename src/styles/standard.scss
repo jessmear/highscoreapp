@@ -3,6 +3,7 @@
 $background: $white;
 $dark-gray: darken($gray, 20%);
 $accent: #4000d0;
+$accent-bright: #4e00ff;
 $accent-light: lighten($accent, 35%);
 $accent-dark: darken($accent, 15%);
 $primary: #248bd2;
@@ -48,6 +49,10 @@ $text: $primary;
       background: $accent;
       border: $accent;
       width: 85%;
+
+      &:hover {
+        background: $accent-bright;
+      }
     }
 
     &.reset {
@@ -175,12 +180,25 @@ $text: $primary;
     }
   }
 
+  .current-round {
+    max-width: 200px;
+  }
+
   .leaderboard {
     vertical-align: top;
     text-align: center;
-    max-width: 400px;
+    max-width: 450px;
     display: inline-block;
     margin: 20px 20px 20px 50px;
+
+    .player10 {
+      color: $accent;
+      font-weight: bold;
+    }
+
+    .player11 {
+      color: $accent;
+    }
 
     table {
       text-align: right;

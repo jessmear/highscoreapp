@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Button        from './Button.js'
-import { getRandom } from '../utils.js'
+import { getRandom, getAverage } from '../utils.js'
 
 const Game = props => {
   const { userInfo, setUserInfo, playerList, setPlayerList } = props
@@ -20,6 +20,7 @@ const Game = props => {
     updatePlayerList(playerList, {
       ...userInfo,
       clicks: count,
+      average: getAverage(currentScore, count),
       score: currentScore}
     )
   }
@@ -28,6 +29,7 @@ const Game = props => {
     updatePlayerList(playerList, {
       ...userInfo,
       clicks: 0,
+      average: 0,
       score: 0}
     )
     setPoints([])
@@ -45,6 +47,7 @@ const Game = props => {
         id: userInfo.id,
         name: userInfo.name,
         score: userInfo.score,
+        average: userInfo.average,
         clicks: userInfo.clicks
       })
     }

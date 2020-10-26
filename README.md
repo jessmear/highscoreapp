@@ -2,7 +2,71 @@
 
 ## About
 
-High Score game was developed in October 2020 by Jess Mear (jessmeardev@gmail.com), starting with Create React App. The Star Wars API (https://swapi.dev/) was used to populate the leaderboard. 
+High Score game was developed in October 2020 by Jess Mear (jessmeardev@gmail.com), starting with Create React App. The Star Wars API (https://swapi.dev/) was used to populate the leaderboard.
+
+## Dev Goals
+
+Possible Updates:
+- Make both styles more mobile friendly
+- Put leaderboard data in a DB so that the leaderboard could be real players
+
+Possible UX Features:
+
+- Implement and test a feature where there is no need to reset, but instead the user can continue playing, but after each tenth click, the score is reset to 0
+  - This would allow a smoother play experience
+  - It would remove some of the fun and tension in that each round no longer feels separate
+
+- Implement and test a feature where the user can toggle sorting the leaderboard by score or average score per click
+  - This would add a more of a sense of fun and also add interest to the leaderboard
+  - The leaderboard is displaying the average data
+  - Work remaining: implementation of the sort and a button or UI element
+
+### Testing
+
+Some tests have been implemented.
+
+More tests are needed to reliably flag when there is an issue. The Game component, in particular, has a lot of functionality that could easily be disrupted by changes. Some additional tests that I think would be useful include:
+
+HighScoreApp
+- Test that the API data is converted to useful data for the leaderboard
+  - Specifically in regards to the Star Wars API
+  - Test that height is converted to points
+  - Test that clicks is a random number between 2 and 10 (inclusinve)
+  - Test that a name and an id exist for each record
+  - test that the user is added to the list
+- Test that each component shows up
+
+Game
+- Test that when the play button is clicked
+  - points is updated
+  - score is updated
+  - clicks are updated
+  - maxRounds is checked
+- Test when reset is clicked
+  - handleReset is called
+- Test that when handleReset is called
+  - userInfo is reset to 0 clicks, 0 score
+  - points is set to []
+  - play button is enabled
+- Test that when submit is clicked
+  - user is removed from playerList
+  - updateHighScore is called
+  - data is POSTed (currently posting to a sample api)
+  - handleReset is called
+- Test that when updateHighScore is called
+  - if userScore is lower than highScore, highScore is not updated
+  - if highScore is not in the playerList, the list is updated to include it
+  - if userScore is higher than highScore, highScore is updated
+- Test that when updatePlayerList is called
+  - if the removeUser flag is false (default), and the current user is not in the playerList, add the user
+  - if the removeUser flag is passed as true, user is removed from the playerList
+- Test that when points list is called, the cumulative list of user points is correctly updated
+- Test that each component shows up
+
+Leaderboard
+- Test that when tableRows is called, the sorted list is generated and placed on the page as a table
+- Test that each component shows up
+
 
 ## Quick Start
 
@@ -14,7 +78,7 @@ To create a production bundle, run `yarn build`.
 
 ### Configure Remote Repo to use gh-pages
 
-set up gh-pages on the repo
+Set up gh-pages on the remoterepo (see help files on GitHub)
 
 ### Configure Local Repo to use gh-pages
 
@@ -31,6 +95,7 @@ Edit the package.json: "homepage": "http://{githubusername}.github.io/{nameofrep
 Note: Pushing code does NOT deploy the code
 
 `commit` and `push`
+
 
 ---
 

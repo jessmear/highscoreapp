@@ -1,22 +1,22 @@
 import React from 'react'
 
+export const sortData = data => {
+  return data.sort((personA, personB) => {
+    personA = parseInt(personA.score)
+    personB = parseInt(personB.score)
+    return (personA < personB) ? 1 : -1
+  })
+}
+
 const Leaderboard = props => {
   const { playerList, loading } = props
 
-  const formatLeaderboardData = data => {
-    const sortedData = data.sort((personA, personB) => {
-      personA = parseInt(personA.score)
-      personB = parseInt(personB.score)
-      return (personA < personB) ? 1 : -1
-    })
-    return sortedData
-  }
-
-  const tableRows = formatLeaderboardData(playerList).map( person => {
+  const tableRows = sortData(playerList).map( person => {
     return <tr key={`${person.name}row${person.id}`} className={`player${person.id}`}>
       <td key={`${person.name}${person.id}`}>{person.name}</td>
       <td key={`score${person.name}${person.id}`}>{person.score}</td>
       <td key={`clicks${person.name}${person.id}`}>{person.clicks}</td>
+      <td key={`avg${person.name}${person.id}`}>{person.average}</td>
     </tr>
   })
 
@@ -29,6 +29,7 @@ const Leaderboard = props => {
             <th>Name</th>
             <th>Score</th>
             <th>Clicks</th>
+            <th>Average</th>
           </tr>
         </thead>
         <tbody>
