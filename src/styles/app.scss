@@ -40,12 +40,6 @@ body {
   flex: 1 100%;
 }
 
-// .flex-item {
-//   padding: 5px;
-//   flex-grow: 1;
-//   margin: 10px;
-// }
-
 .flex-fullrow-item {
   flex: 0 0 100%;
 }
@@ -62,7 +56,7 @@ body {
 
   .title {
     font-family: $oswald;
-    color: black;
+    color: $black;
     font-size: 48px;
     font-weight: 700;
     text-align: center;

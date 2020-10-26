@@ -14,77 +14,88 @@ const Game = props => {
     const currentPoints = [...points, getRandom(100,-1)]
     const count = userInfo.clicks+1
     const currentScore = currentPoints.reduce((total, num) => { return total + num })
-    const tempList = playerList
-    const tempInfo = {
+
+    if(count>=maxRounds) { toggleButtonDisabled(true) }
+    setPoints(currentPoints)
+    updatePlayerList(playerList, {
       ...userInfo,
       clicks: count,
-      score: currentScore
-    }
-
-    const currentUserIndex = tempList.findIndex(player => player.id == 10)
-    if(currentUserIndex<0) {
-      tempList.push(tempInfo)
-    } else {
-      tempList[currentUserIndex] = tempInfo
-    }
-
-    setPlayerList(tempList)
-    setUserInfo(tempInfo)
-    setPoints(currentPoints)
-    if(count>=maxRounds) { toggleButtonDisabled(true) }
+      score: currentScore}
+    )
   }
 
-  const pointsList = points.map( (point, i) => {
-    return (<li key={`${i}-${point}`}>{point}</li>)
-  })
-
   const handleReset = () => {
-    setUserInfo({...userInfo, clicks: 0, score: 0})
-    const tempList = playerList
-    const currentUserIndex = tempList.findIndex(player => player.id == 10)
-    tempList[currentUserIndex] = {...userInfo, clicks: 0, score: 0}
-    setPlayerList(tempList)
+    updatePlayerList(playerList, {
+      ...userInfo,
+      clicks: 0,
+      score: 0}
+    )
     setPoints([])
     toggleButtonDisabled(false)
   }
 
   const handleSubmit = () => {
-    let tempList = playerList
-    const currentUserIndex = playerList.findIndex(player => player.id == 10)
-    tempList.splice(currentUserIndex, 1)
-
-    if(userInfo.score > highScore.score) {
-      const highScoreIndex = playerList.findIndex(player => player.id == 11)
-
-      if(highScoreIndex>=0) {
-        tempList[highScoreIndex] = {...userInfo, id: 11}
-      } else {
-        tempList.push({...userInfo, id: 11})
-      }
-      setHighScore({...userInfo, id: 11})
-    }
-
-    setPlayerList(tempList)
+    updateHighScore(userInfo, playerList, highScore)
+    updatePlayerList(playerList, {...userInfo}, true)
 
     const data = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        id: userInfo.id,
         name: userInfo.name,
         score: userInfo.score,
         clicks: userInfo.clicks
       })
     }
-    fetch('https://reqres.in/api/users', data)
-     .then(response => response.json())
 
-    console.log(`Results:`)
-    console.log(`Name: ${userInfo.name}`)
-    console.log(`Click Count: ${userInfo.clicks}`)
-    console.log(`User Score: ${userInfo.score}`)
+    fetch('https://reqres.in/api/users', data)
+      .then(result => result.json())
+      .then(
+        (jsonResult) => {
+          console.log(jsonResult)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
 
     handleReset()
   }
+
+  const updateHighScore = (details, list, currentHighScore) => {
+    if(details.score > currentHighScore.score) {
+      const highScoreIndex = list.findIndex(player => player.id == 11)
+
+      if(highScoreIndex>=0) {
+        list[highScoreIndex] = {...details, id: 11}
+      } else {
+        list.push({...details, id: 11})
+      }
+      setHighScore({...details, id: 11})
+    }
+    setPlayerList(list)
+  }
+
+  const updatePlayerList = (list, details, removeUser=false) => {
+    const currentUserIndex = list.findIndex(player => player.id == details.id)
+
+    if(removeUser) {
+      list.splice(currentUserIndex, 1)
+    } else {
+      if(currentUserIndex<0) {
+        list.push(details)
+      } else {
+        list[currentUserIndex] = details
+      }
+    }
+    setPlayerList(list)
+    setUserInfo(details)
+  }
+
+  const pointsList = points.map( (point, i) => {
+    return (<li key={`${i}-${point}`}>{point}</li>)
+  })
 
   return (
     <>
