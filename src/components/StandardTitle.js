@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StarWarsTitle = props => {
+const StandardTitle = props => {
   return (
     <div className='title-box'>
       <h1 className='title'>High Score App</h1>
@@ -8,4 +8,4 @@ const StarWarsTitle = props => {
   )
 }
 
-export default StarWarsTitle
+export default StandardTitle

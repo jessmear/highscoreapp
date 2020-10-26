@@ -11,7 +11,7 @@ const Game = props => {
   const [buttonDisabled, toggleButtonDisabled] = useState(false)
 
   const handlePlayButton = () => {
-    const currentPoints = [...points, getRandom(100,-1)]
+    const currentPoints = [...points, getRandom(100,-100)]
     const count = userInfo.clicks+1
     const currentScore = currentPoints.reduce((total, num) => { return total + num })
 
