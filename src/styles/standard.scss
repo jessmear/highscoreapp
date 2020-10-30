@@ -19,6 +19,13 @@ $text: $primary;
   width: 70%;
   margin: auto;
 
+  .note {
+    position: absolute;
+    top: 5px;
+    left: 177px;
+    font-size: 14px;
+  }
+
   button {
     display: inline-block;
     padding: 8px 10px;
