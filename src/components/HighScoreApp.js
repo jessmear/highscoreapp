@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Title from './Title.js'
+import Title         from './Title.js'
 import Instructions  from './Instructions.js'
 import Game          from './Game.js'
 import Leaderboard   from './Leaderboard.js'
 import Button        from './Button.js'
-import { getRandom, getAverage } from '../utils.js'
+import { getRandom, getWholeNumberAverage } from '../utils.js'
 import '../styles/app.scss'
 import '../styles/standard.scss'
 import '../styles/eighties.scss'
@@ -16,7 +16,7 @@ const HighScoreApp = () => {
   const [playerList, setPlayerList] = useState([])
   const [userInfo, setUserInfo] = useState({
     id: 10,
-    name: 'Rey Skywalker',
+    name: '',
     average: 0,
     score: 0,
     clicks: 0
@@ -44,7 +44,7 @@ const HighScoreApp = () => {
         id: i,
         name: person.name,
         score: person.height,
-        average: getAverage(person.height, clicks),
+        average: getWholeNumberAverage(person.height, clicks),
         clicks
       }
     })
@@ -52,14 +52,14 @@ const HighScoreApp = () => {
       id: userInfo.id,
       name: userInfo.name,
       score: userInfo.score,
-      average: getAverage(userInfo.score, userInfo.clicks),
+      average: getWholeNumberAverage(userInfo.score, userInfo.clicks),
       clicks: userInfo.clicks
     })
     setPlayerList(cleanList)
   }
 
   const handleInput = (event) => {
-    setUserInfo({...userInfo, name: event.target.value})
+    setUserInfo({ ...userInfo, name: event.target.value })
   }
 
   const handleStyleSwap = () => {

@@ -86,7 +86,8 @@ $text: $primary;
       }
     }
 
-    &.disabled {
+    &.disabled,
+    &.disabled:hover {
       cursor: not-allowed;
       color: $white;
       border-color: $gray;
