@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders button should render the button component correctly 1`] = `
+<Button>
+  <button>
+    Test Button Text
+  </button>
+</Button>
+`;

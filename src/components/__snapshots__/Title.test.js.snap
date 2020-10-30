@@ -1,25 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders title should render the title Component correctly 1`] = `
-<div
-  className="title-box"
->
-  <h1
-    className="title"
+exports[`renders title renders the title component correctly 1`] = `
+<Title>
+  <div
+    className="title-box"
   >
-    High Score App
-  </h1>
-</div>
-`;
-
-exports[`renders title should render the title component correctly 1`] = `
-<div
-  className="title-box"
->
-  <h1
-    className="title"
-  >
-    High Score App
-  </h1>
-</div>
+    <h1
+      className="title"
+    >
+      High Score App
+    </h1>
+  </div>
+</Title>
 `;

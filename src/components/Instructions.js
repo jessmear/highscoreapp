@@ -13,7 +13,7 @@ const Instructions = props => {
         <li>Only your highest score will be saved to the leaderboard.</li>
       </ul>
       <label>Name</label>
-      <input type='text' value={props.userInfo.name} onChange={props.handleInput} />
+      <input type='text' value={props.userInfo.name} onChange={props.handleInput} placeholder='PlayerRed5' />
     </div>
   )
 }

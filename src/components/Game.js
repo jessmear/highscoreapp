@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import Button        from './Button.js'
-import { getRandom, getAverage } from '../utils.js'
+import React, { useState } from 'react'
+import Button from './Button.js'
+import { getRandom, getWholeNumberAverage } from '../utils.js'
 
 const Game = props => {
   const { userInfo, setUserInfo, playerList, setPlayerList } = props
   const maxRounds = 10
 
   const [points, setPoints] = useState([])
-  const [highScore, setHighScore] = useState({name: userInfo.name, id: 11, score: 0, clicks: 0})
+  const [highScore, setHighScore] = useState({ name: userInfo.name, id: 11, score: 0, clicks: 0} )
   const [buttonDisabled, toggleButtonDisabled] = useState(false)
 
   const handlePlayButton = () => {
@@ -19,10 +19,11 @@ const Game = props => {
     setPoints(currentPoints)
     updatePlayerList(playerList, {
       ...userInfo,
+      name: (userInfo.name === '') ? 'PlayerRed5' : userInfo.name,
       clicks: count,
-      average: getAverage(currentScore, count),
-      score: currentScore}
-    )
+      average: getWholeNumberAverage(currentScore, count),
+      score: currentScore
+    })
   }
 
   const handleReset = () => {
@@ -38,7 +39,7 @@ const Game = props => {
 
   const handleSubmit = () => {
     updateHighScore(userInfo, playerList, highScore)
-    updatePlayerList(playerList, {...userInfo}, true)
+    updatePlayerList(playerList, { ...userInfo }, true)
 
     const data = {
       method: 'POST',
@@ -103,7 +104,7 @@ const Game = props => {
   return (
     <>
       <div className='game'>
-        <h2>Welcome {userInfo.name}!</h2>
+        <h2>Welcome{userInfo.name !== '' ? ` ${userInfo.name}` : ''}!</h2>
         <p>Score: </p><span className='info'>{userInfo.score}</span>
         <p>Clicks Remaining: </p>
         <span className='info'>
