@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders title should render the Title Component correctly 1`] = `
+<div
+  className="title-box"
+>
+  <h1
+    className="title"
+  >
+    High Score App
+  </h1>
+</div>
+`;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import StarWarsTitle from './StarWarsTitle.js'
-import StandardTitle from './StandardTitle.js'
+import Title from './Title.js'
 import Instructions  from './Instructions.js'
 import Game          from './Game.js'
 import Leaderboard   from './Leaderboard.js'
@@ -65,26 +64,22 @@ const HighScoreApp = () => {
 
   const handleStyleSwap = () => {
     console.log("swap")
-    setStyle( (style === 'standard') ? 'star-wars' : 'standard');
+    setStyle( (style === 'standard') ? 'star-wars' : 'standard')
   }
+
+  const note = <p className='note'>Note: Styling is best viewed on a wide screen.</p>
 
   return (
     <div id={style}>
-      { style == 'star-wars' ?
-        <>
-          <Button classes='swap-styles' onclick={handleStyleSwap}>Switch to Standard</Button>
-          <p className='note'>Note: StarWars styling is best viewed on a wide screen.</p>
-          <StarWarsTitle />
-        </>
-        :
-        <Button classes='swap-styles' onclick={handleStyleSwap}>Switch to Star Wars</Button>
-      }
+      {note}
+      <Button classes='swap-styles' onclick={handleStyleSwap}>Switch to { style === 'star-wars' ? 'Standard' : 'Star Wars' }</Button>
+      { style === 'star-wars' && <Title>May the Score be with You</Title> }
       { error &&
         <h1 className='error'><span>Error: </span>[{error.message} {error.status}] Try reloading the page.</h1>
       }
       <div className='flex-container wrap'>
         <div className='header-container'>
-          { style=='standard' && <StandardTitle />}
+          { style === 'standard' && <Title>High Score App</Title> }
           <Instructions
             userInfo={userInfo}
             handleInput={handleInput}

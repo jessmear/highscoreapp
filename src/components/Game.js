@@ -68,7 +68,7 @@ const Game = props => {
 
   const updateHighScore = (details, list, currentHighScore) => {
     if(details.score > currentHighScore.score) {
-      const highScoreIndex = list.findIndex(player => player.id == 11)
+      const highScoreIndex = list.findIndex(player => player.id === 11)
 
       if(highScoreIndex>=0) {
         list[highScoreIndex] = {...details, id: 11}
@@ -81,7 +81,7 @@ const Game = props => {
   }
 
   const updatePlayerList = (list, details, removeUser=false) => {
-    const currentUserIndex = list.findIndex(player => player.id == details.id)
+    const currentUserIndex = list.findIndex(player => player.id === details.id)
 
     if(removeUser) {
       list.splice(currentUserIndex, 1)
